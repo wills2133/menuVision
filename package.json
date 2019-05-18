@@ -1,0 +1,24 @@
+{
+  "name": "menuvision",
+  "version": "0.0.0",
+  "description": "_v0.4.0_merge_gallery",
+  "author": null,
+  "private": true,
+  "main": "node_modules/expo/AppEntry.js",
+  "dependencies": {
+    "expo": "^30.0.0",
+    "react": "16.3.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "axios": "^0.18.0",
+    "dotenv": "^6.0.0",
+    "expo-three": "^3.0.0-alpha.1",
+    "native-base": "^2.5.2",
+    "prop-types": "15.7.2",
+    "rapidapi-connect": "0.0.6",
+    "react-navigation": "2.5.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
+  }
+}
