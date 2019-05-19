@@ -1,5 +1,5 @@
 # menuVision
-a mobile app transforms restaurant menu to pictures
+a mobile app interpret restaurant menu text to pictures
 
 # setup
 ```javascript
