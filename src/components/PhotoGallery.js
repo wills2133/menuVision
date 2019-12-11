@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Animated } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback, Animated } from 'react-native';
 import Transition from './Transition';
 import DetailScreen from './DetailScreen';
 
@@ -19,7 +19,6 @@ class PhotoGalleryPhoto extends React.Component {
   };
 
   render() {
-    console.log("this.props", this.props)
     const { style, photo } = this.props;
     const { opacity } = this.state;
     return (
@@ -40,9 +39,31 @@ class PhotoGalleryPhoto extends React.Component {
   }
 }
 
-export default class PhotoGallery extends React.Component {
-  static Photo = PhotoGalleryPhoto;
+const renderRow = (onPhotoOpen, row) => {
+  return(<View
+    style={{
+      flexDirection: 'row',
+      marginBottom: 5,
+      justifyContent: 'space-between'
+    }}
+  >
+    {row.map(item =>
+      <TouchableWithoutFeedback key={item.id} onPress={() => onPhotoOpen(item)}>
+        <View>
+          <PhotoGalleryPhoto
+            photo={item}
+            style={{
+              width: item.width,
+              height: item.height,
+            }}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    )}
+  </View>)
+}
 
+export default class PhotoGallery extends React.Component {
   state = {
     photo: null,
     openProgress: new Animated.Value(0),
@@ -101,7 +122,11 @@ export default class PhotoGallery extends React.Component {
     const { photo, openProgress, isAnimating } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        {this.props.renderContent({ onPhotoOpen: this.open })}
+        <FlatList
+          data={this.props.rows}
+          renderItem={({item}) => renderRow(this.open, item)}
+          keyExtractor={ (_row, i) => i.toString()}
+        />
         <Transition
           openProgress={openProgress}
           photo={photo}

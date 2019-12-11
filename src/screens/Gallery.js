@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  FlatList,
-  Dimensions,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { Dimensions } from 'react-native';
 import PHOTOS from '../../assets/data';
 import { processImages, buildRows, normalizeRows } from '../utils/util';
 import PhotoGallery from '../components/PhotoGallery';
@@ -51,43 +46,12 @@ export default class Gallery extends React.Component {
       dataSource: rows,
     })
   }
-
-  renderRow = (onPhotoOpen, row) => {
-    return(<View
-      style={{
-        flexDirection: 'row',
-        marginBottom: 5,
-        justifyContent: 'space-between'
-      }}
-    >
-      {row.map(item =>
-        <TouchableWithoutFeedback key={item.id} onPress={() => onPhotoOpen(item)}>
-          <View>
-            <PhotoGallery.Photo
-              photo={item}
-              style={{
-                width: item.width,
-                height: item.height,
-              }}
-            />
-          </View>
-        </TouchableWithoutFeedback>
-      )}
-    </View>)
-  }
     
 
   render() {
     // console.log("this.state.dataSource", this.state.dataSource)
     return (
-      <PhotoGallery
-        renderContent={({ onPhotoOpen }) =>
-          <FlatList
-            data={this.state.dataSource}
-            renderItem={({item}) => this.renderRow(onPhotoOpen, item)}
-            keyExtractor={ (row, i) => i.toString()}
-          />}
-      />
+      <PhotoGallery rows={this.state.dataSource} />
     );
   }
 }
