@@ -13,13 +13,14 @@ const {winHeight, winWidth} = Dimensions.get('screen');
 import cesResults from '../../assets/cesRes.json'
 import ocr from '../../assets/ocr.json'
 
+const debug = false
+
 class ShowPicture extends React.Component {
   constructor() {
     super()
     this.state = {
       currentPosition: 0,
       toPosition: 0,
-      debug: false,
       image: {},
       imageFile: '',
       labelByServerOriginal: {},
@@ -45,7 +46,7 @@ class ShowPicture extends React.Component {
     let image = require('../../assets/sample.png')
     let imageFile = ''
     ////
-    if(!this.state.debug){
+    if(!debug){
       image = {uri:this.props.navigation.state.params.photoUri || 'photo not recorded', isStatic:true}
       imageFile = this.props.navigation.state.params.photo
       labelByServerOriginal = this.props.navigation.state.params.recogRes
@@ -116,7 +117,7 @@ class ShowPicture extends React.Component {
     // console.log("imgSearchResults", imgSearchResults[0])
     const { navigate } = this.props.navigation
     return imgSearchResults.map( (imgSearchResult, i) =>
-      <AniCard key={i.toString()} positionMin={i*PictureWidth-1} positionMax={i*PictureWidth+PictureOffset}>
+      <AniCard key={i.toString()} positionMin={i*PictureWidth-PictureOffset} positionMax={i*PictureWidth+PictureOffset}>
         <TouchableOpacity onPress={ ()=>navigate('gallery', {imgSearchResult}) }>
           <Image style={Styles.image} 
           // source={require('../../assets/food1.png')}/>
@@ -169,11 +170,11 @@ class ShowPicture extends React.Component {
           <ScrollBar
           getCurrentPosition={this.getCurrentPosition.bind(this)}
           toPosition={this.state.toPosition}>
-            <AniCard emptyCard={false} positionMin={999} positionMax={0}>
+            <AniCard emptyCard={true} positionMin={999} positionMax={0}>
               <View  style={Styles.image}></View >
             </AniCard>
             {this.pictureCandidates(this.state.labelByUser, this.state.searchResults)}
-            <AniCard emptyCard={false} positionMin={999} positionMax={0}>
+            <AniCard emptyCard={true} positionMin={999} positionMax={0}>
               <View style={Styles.image}></View>
             </AniCard>
           </ScrollBar>

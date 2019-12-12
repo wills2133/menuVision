@@ -9,10 +9,10 @@ class LabelBox extends React.Component {
 
   styleLocation = (vertices, acitvated, normalColor, activatedColor) => {
     let imgW = 420, imgH = 746;
-    let lbx = ((vertices[0].x * 100) / imgW).toFixed(0) + '%';
-    let lby = (((vertices[0].y) * 100) / imgH).toFixed(1) + '%';
-    let w = (((vertices[1].x - vertices[0].x) * 100) / imgW).toFixed(0) + '%';
-    let h = (((vertices[2].y - vertices[1].y) * 100) / imgH).toFixed(0) + '%';
+    let lbx = ((vertices[0].x * 100) / imgW - 0.2).toFixed(1) + '%';
+    let lby = (((vertices[0].y) * 100) / imgH - 0.2).toFixed(1) + '%';
+    let w = (((vertices[1].x - vertices[0].x) * 100) / imgW + 0.4 ).toFixed(1) + '%';
+    let h = (((vertices[2].y - vertices[1].y) * 100) / imgH + 0.4 ).toFixed(1) + '%';
     
     return [Styles.labelBox, {
       position: 'absolute',

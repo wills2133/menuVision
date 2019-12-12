@@ -1,6 +1,6 @@
 import { Constants } from 'expo';
 import React from 'react';
-import { Text, Image, View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import Styles, {PictureWidth, PictureOffset} from '../styles'
 
 class ScrollBar extends React.Component {
@@ -44,10 +44,10 @@ class ScrollBar extends React.Component {
 
   render() {
     return (
-      <ScrollView scrollEventThrottle={100} horizontal={true} 
+      <ScrollView scrollEventThrottle={150} horizontal={true} 
       snapToInterval={PictureWidth} snapToAlignment={'center'} decelerationRate={'fast'}
       alwaysBounceHorizontal = {true} overScrollMode={'never'}
-      showsHorizontalScrollIndicator={false} pagingEnabled={false}
+      showsHorizontalScrollIndicator={true} pagingEnabled={false}
       onScroll={(scrollView)=>this.onAnimationEnd(scrollView)}
       ref = {(elem) => this.scrollViewRef = elem}>
         {this.renderChildren()}

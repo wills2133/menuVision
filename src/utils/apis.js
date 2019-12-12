@@ -1,7 +1,7 @@
 import config from './config';
 import axios from 'axios';
 
-export function parseImgSearchResp(imgSearchResponse) {
+const parseImgSearchResp = function(imgSearchResponse) {
     let searchResults = []
     let item2 = {}
     // console.log('imgSearchResponse', imgSearchResponse[0])
@@ -23,7 +23,7 @@ export function getUrls (mergedLabelPosition, addSearchResult){
   console.log("paramsStr", paramsStr)
   axios.get( config.googleCSE.api + '?' + paramsStr )
   .then( res => {
-    console.log("res", Object.keys(res))
+    // console.log("res", Object.keys(res))
     let searchResult = parseImgSearchResp(res.data)
     addSearchResult(mergedLabelPosition, searchResult)
   })
@@ -96,6 +96,20 @@ export function getUrls2 (labelPosition, i, addResult){
       console.log("error", error)
     });
   }
+
+export function getTranslated (update, origText, targetLang) {
+  config.googleTranslate.params.q = origText
+  // config.googleTranslate.params.target = targetLang
+  axios.get( config.googleTranslate.baseUrl, {params:config.googleTranslate.params})
+  .then(response=>{
+    console.log("response", response['data']['data']['translations'][0]['translatedText'])
+    update(response['data']['data']['translations'][0]['translatedText']) 
+  })
+  .catch( error => { 
+    console.log("translation error", error)
+    update("faild to translate")
+  })
+}
 
 export function uploadRes(payload) {
   console.log("payload", payload)

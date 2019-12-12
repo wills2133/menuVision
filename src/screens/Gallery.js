@@ -23,6 +23,7 @@ export default class Gallery extends React.Component {
     let PhotoSource
     if (!debug) {
       let imgUris = this.props.navigation.state.params.imgSearchResult
+      console.log("this.props.navigation.state.params.imgSearchResult",this.props.navigation.state.params.imgSearchResult)
       PhotoSource = imgUris.map( (imgUri, i) => {
       let photo = {'id':i, 'width':128,'height':159 }
       let source = { 'uri': imgUri.source, cache:"force-cache" }

@@ -4,7 +4,12 @@ const config = {
     key: 'AIzaSyDEZwOzRv8P1ck-wSjlbExEIJwsImLtHRk'
   },
   googleTranslate: {
-    api: 'https://translation.googleapis.com/language/translate/v2'
+    baseUrl: 'https://translation.googleapis.com/language/translate/v2',
+    params:{
+      target:'zh-CN',
+      key:'AIzaSyBBEhmR6aqN8XLyOFKzpZPBBbOQ2vuqW-g',
+      q:'default'
+    } 
   },
   googleCSE: {
     api: `https://www.googleapis.com/customsearch/v1`,

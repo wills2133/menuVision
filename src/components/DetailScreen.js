@@ -7,19 +7,36 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native';
+import { getTranslated } from '../utils/apis'
 
 const maxWidth = Dimensions.get('window').width;
 
 export default class DetailScreen extends React.Component {
   state = {
     localPhoto: null,
+    text: ""
   };
 
   componentWillReceiveProps(nextProps) {
+    console.log("update", nextProps)
     const { photo } = nextProps;
     if (photo) {
       this.setState({ localPhoto: photo });
+      getTranslated(this.updateTranslateText, 'default')
     }
+  }
+
+  updateTranslateText = (text) => {
+    this.setState({
+      text:`“${text}”`
+    })
+  }
+
+  onCloseEvent = (id) => {
+    this.props.onClose(id)
+    this.setState({
+      text:""
+    })
   }
 
   render() {
@@ -53,7 +70,7 @@ export default class DetailScreen extends React.Component {
                 ],
               },
             ]}/>
-            
+
           <Animated.Image
             ref={r => (this._openingImageRef = r)}
             source={localPhoto.source}
@@ -68,6 +85,11 @@ export default class DetailScreen extends React.Component {
               }),
             }}
           />
+          <View style={{position: 'absolute', bottom: "10%", width: "100%"}}>
+            <Text style={styles.description}>
+              {this.state.text}
+            </Text>
+          </View>
           <Animated.View
             style={{
               position: 'absolute',
@@ -80,7 +102,7 @@ export default class DetailScreen extends React.Component {
             }}
             pointerEvents={isAnimating ? 'none' : 'auto'}>
             <TouchableOpacity
-              onPress={() => onClose(localPhoto.id)}
+              onPress={() => this.onCloseEvent(localPhoto.id)}
               style={styles.closeButton}>
               <Text style={styles.closeText}>Close</Text>
             </TouchableOpacity>
@@ -95,6 +117,21 @@ export default class DetailScreen extends React.Component {
 const styles = StyleSheet.create({
   body: { flex: 1, padding: 15 },
   closeText: { color: 'white', backgroundColor: 'transparent' },
+  title: {
+    position: 'absolute',
+    bottom: "20%",
+    color: '#000',
+    fontSize: 22,
+    fontWeight: '600',
+    // fontFamily: 'Avenir Next',
+    lineHeight: 50,
+  },
+  description: {
+    fontStyle: 'italic',
+    color: '#333',
+    fontSize: 16,
+    textAlign: "center"
+  },
   closeButton: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     borderColor: 'white',

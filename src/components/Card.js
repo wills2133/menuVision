@@ -1,11 +1,16 @@
-import { Constants } from 'expo';
+// import { Constants } from 'expo';
 import React from 'react';
-import { Text, Image, View, Animated } from 'react-native';
+import { Animated } from 'react-native';
+
+const baseWidth = 120
+const baseHeight = 120
+const baseX = 80
+const baseY = 60
 
 class AniCard extends React.Component {
   state = {
     scale: new Animated.Value(1),  // Initial value for opacity: 0
-    moveX: new Animated.Value(-0.9),
+    moveX: new Animated.Value(-0.9), // -1 -> 0px to bottom
     moveY: new Animated.Value(0),
   }
   componentWillReceiveProps(nextProps) {
@@ -16,16 +21,16 @@ class AniCard extends React.Component {
       && nextProps.current < this.props.positionMax){
       Animated.parallel([
         Animated.timing(this.state.scale, {
-          toValue: 1.5, 
-          duration:100,
+          toValue: 1.3, 
+          duration:200,
         }),
         Animated.timing(this.state.moveX, {
-          toValue: 0,
-          duration: 100, 
+          toValue: -0.45,
+          duration: 200, 
         }),
         Animated.timing(this.state.moveY, {
           toValue: 1,
-          duration: 100, 
+          duration: 200, 
         }),
       ]).start();
     }else{
@@ -46,11 +51,12 @@ class AniCard extends React.Component {
     }
   }
 
+  //style varies according to Animate state
   animeStyle = {
-    width: Animated.multiply(this.state.scale, 120),
-    height: Animated.multiply(this.state.scale, 120),
-    bottom: Animated.multiply(this.state.moveX, 80),
-    // left: Animated.multiply(this.state.moveY, 60),
+    width: Animated.multiply(this.state.scale, baseWidth),
+    height: Animated.multiply(this.state.scale, baseHeight),
+    bottom: Animated.multiply(this.state.moveX, baseX),
+    // left: Animated.multiply(this.state.moveY, baseY),
   }
 
   setStyle = () => {
@@ -66,11 +72,11 @@ class AniCard extends React.Component {
     else{
       return(
         {
-          height:120,
-          width:120,
+          height:baseWidth,
+          width:baseHeight,
           left:0,
           marginRight:10,
-          borderWidth:0.5,
+          borderWidth:0,
           borderColor:"#dddddd",
           // position:"aboulute",
           // backgroundColor: 'powderblue'

@@ -1,7 +1,7 @@
 import React, {StyleSheet} from 'react-native'
 
 export const PictureWidth = 130
-export const PictureOffset = 40
+export const PictureOffset = 30
 export const LabelColor = {
   serverPos: 'lightslategray',
   serverNeg: 'white',
@@ -41,7 +41,8 @@ export default StyleSheet.create({
   // label box
   labelBox: {
       borderRadius: 1,
-      borderWidth: 3,
+      borderWidth: 2,
       backgroundColor: 'rgba(255, 255, 255, 0)',
+      opacity: 0.5
   },
 })
