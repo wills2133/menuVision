@@ -15,7 +15,7 @@ const config = {
     baseUrl: 'https://www.googleapis.com/customsearch/v1',
     params: {
       q: '',
-      cx: "001848459722732377703%3Abqrqfxulxua",
+      cx: "001848459722732377703:bqrqfxulxua",
       searchType: 'image',
       key: 'AIzaSyDEZwOzRv8P1ck-wSjlbExEIJwsImLtHRk'
     }
