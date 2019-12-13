@@ -17,7 +17,6 @@ const parseImgSearchResp = function(imgSearchResponse) {
 
 export function getUrls (mergedLabelPosition, addSearchResult){
   config.googleCSE.params.q = mergedLabelPosition.word
-  console.log("params", config.googleCSE.baseUrl, config.googleCSE.params)
   axios.get( config.googleCSE.baseUrl, {params:config.googleCSE.params} )
   .then( res => {
     // console.log("res", Object.keys(res))
