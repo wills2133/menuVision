@@ -16,19 +16,16 @@ const parseImgSearchResp = function(imgSearchResponse) {
 }
 
 export function getUrls (mergedLabelPosition, addSearchResult){
-  let params = config.googleCSE.params
-  params.q = mergedLabelPosition.word
-  // console.log("params", params)
-  let paramsStr = ( Object.entries(params).map( pair => pair[0] + '=' + pair[1] ) ).join('&')
-  console.log("paramsStr", paramsStr)
-  axios.get( config.googleCSE.api + '?' + paramsStr )
+  config.googleCSE.params.q = mergedLabelPosition.word
+  console.log("params", config.googleCSE.baseUrl, config.googleCSE.params)
+  axios.get( config.googleCSE.baseUrl, {params:config.googleCSE.params} )
   .then( res => {
     // console.log("res", Object.keys(res))
     let searchResult = parseImgSearchResp(res.data)
     addSearchResult(mergedLabelPosition, searchResult)
   })
   .catch(error => {
-    console.log("error", error)
+    console.log("getUrls error", error)
   });
 }
 
@@ -48,7 +45,6 @@ export function getUrls (mergedLabelPosition, addSearchResult){
 // }
 
 export function getOCR(image) { 
-  // console.log("mark1----")
   let now = new Date()
   let stamp = now.getFullYear()
     + ('00' + (now.getMonth()+1)).slice(-2)
@@ -56,7 +52,6 @@ export function getOCR(image) {
     + ('00' + now.getSeconds()).slice(-2)
     + ('000' + now.getMilliseconds()).slice(-3)
     + "_wills"
-  // console.log("mark----")
   return axios
     .post(config.googleCloudVision.api + config.googleCloudVision.key, {
       requests: [{
@@ -100,14 +95,14 @@ export function getUrls2 (labelPosition, i, addResult){
 export function getTranslated (update, origText, targetLang) {
   config.googleTranslate.params.q = origText
   // config.googleTranslate.params.target = targetLang
+  console.log("origText", origText)
   axios.get( config.googleTranslate.baseUrl, {params:config.googleTranslate.params})
   .then(response=>{
-    console.log("response", response['data']['data']['translations'][0]['translatedText'])
     update(response['data']['data']['translations'][0]['translatedText']) 
   })
   .catch( error => { 
     console.log("translation error", error)
-    update("faild to translate")
+    update("")
   })
 }
 

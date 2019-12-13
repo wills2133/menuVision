@@ -134,6 +134,7 @@ export default class PhotoGallery extends React.Component {
           isAnimating={isAnimating}
         />
         <DetailScreen
+          label={this.props.label}
           photo={photo}
           onClose={this.close}
           openProgress={openProgress}

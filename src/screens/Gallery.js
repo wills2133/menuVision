@@ -16,15 +16,10 @@ export default class Gallery extends React.Component {
     };
   }
   componentDidMount() {
-    
-    let { navigate } = this.props.navigation
-    
     // console.log("PHOTOS", PHOTOS[0])
     let PhotoSource
     if (!debug) {
-      let imgUris = this.props.navigation.state.params.imgSearchResult
-      console.log("this.props.navigation.state.params.imgSearchResult",this.props.navigation.state.params.imgSearchResult)
-      PhotoSource = imgUris.map( (imgUri, i) => {
+      PhotoSource = this.props.navigation.state.params.imgSearchResult.map( (imgUri, i) => {
       let photo = {'id':i, 'width':128,'height':159 }
       let source = { 'uri': imgUri.source, cache:"force-cache" }
       photo['source'] = source
@@ -42,7 +37,6 @@ export default class Gallery extends React.Component {
     })
     let rows = buildRows(processedImages, maxWidth);
     rows = normalizeRows(rows, maxWidth);
-    
     this.setState({
       dataSource: rows,
     })
@@ -52,7 +46,7 @@ export default class Gallery extends React.Component {
   render() {
     // console.log("this.state.dataSource", this.state.dataSource)
     return (
-      <PhotoGallery rows={this.state.dataSource} />
+      <PhotoGallery rows={this.state.dataSource} label={this.props.navigation.state.params.label}/>
     );
   }
 }

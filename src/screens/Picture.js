@@ -118,7 +118,7 @@ class ShowPicture extends React.Component {
     const { navigate } = this.props.navigation
     return imgSearchResults.map( (imgSearchResult, i) =>
       <AniCard key={i.toString()} positionMin={i*PictureWidth-PictureOffset} positionMax={i*PictureWidth+PictureOffset}>
-        <TouchableOpacity onPress={ ()=>navigate('gallery', {imgSearchResult}) }>
+        <TouchableOpacity onPress={ ()=>navigate('gallery', {imgSearchResult:imgSearchResult, label:labels[i].word}) }>
           <Image style={Styles.image} 
           // source={require('../../assets/food1.png')}/>
           source={{uri:imgSearchResult[0]['source']}}/>

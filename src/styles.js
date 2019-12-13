@@ -43,6 +43,6 @@ export default StyleSheet.create({
       borderRadius: 1,
       borderWidth: 2,
       backgroundColor: 'rgba(255, 255, 255, 0)',
-      opacity: 0.5
+      opacity: 1
   },
 })

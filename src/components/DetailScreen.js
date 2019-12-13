@@ -18,11 +18,10 @@ export default class DetailScreen extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log("update", nextProps)
     const { photo } = nextProps;
     if (photo) {
       this.setState({ localPhoto: photo });
-      getTranslated(this.updateTranslateText, 'default')
+      getTranslated(this.updateTranslateText, this.props.label)
     }
   }
 

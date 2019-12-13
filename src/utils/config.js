@@ -12,10 +12,10 @@ const config = {
     } 
   },
   googleCSE: {
-    api: `https://www.googleapis.com/customsearch/v1`,
+    baseUrl: 'https://www.googleapis.com/customsearch/v1',
     params: {
       q: '',
-      cx: '001848459722732377703%3Abqrqfxulxua',
+      cx: "001848459722732377703%3Abqrqfxulxua",
       searchType: 'image',
       key: 'AIzaSyDEZwOzRv8P1ck-wSjlbExEIJwsImLtHRk'
     }
