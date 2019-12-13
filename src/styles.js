@@ -39,10 +39,28 @@ export default StyleSheet.create({
     position:"absolute", height:"30%", bottom:"0%"
   },
   // label box
-  labelBox: {
-      borderRadius: 1,
-      borderWidth: 2,
-      backgroundColor: 'rgba(255, 255, 255, 0)',
-      opacity: 1
+  labelSelectNeg: {
+    borderRadius: 1,
+    borderWidth: 0.5,
+    borderColor: 'white',
+    opacity: 1
+  },
+  labelSelectPos: {
+    borderRadius: 1,
+    borderWidth: 2,
+    borderColor: 'lightslategray',
+    opacity: 1
+  },
+  labelActivateNeg: {
+    borderRadius: 1,
+    borderWidth: 2,
+    borderColor: 'gold',
+    opacity: 1
+  },
+  labelActivatePos: {
+    borderRadius: 1,
+    borderWidth: 2,
+    borderColor: 'tomato',
+    opacity: 1
   },
 })

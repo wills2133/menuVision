@@ -7,20 +7,19 @@ class LabelBox extends React.Component {
     super()
   }
 
-  styleLocation = (vertices, acitvated, normalColor, activatedColor) => {
+  styleLocation = (vertices, acitvated, normalStyle, activatedStyle) => {
     let imgW = 420, imgH = 746;
     let lbx = ((vertices[0].x * 100) / imgW - 0.2).toFixed(1) + '%';
     let lby = (((vertices[0].y) * 100) / imgH - 0.2).toFixed(1) + '%';
     let w = (((vertices[1].x - vertices[0].x) * 100) / imgW + 0.4 ).toFixed(1) + '%';
     let h = (((vertices[2].y - vertices[1].y) * 100) / imgH + 0.4 ).toFixed(1) + '%';
     
-    return [Styles.labelBox, {
+    return [acitvated ? activatedStyle : normalStyle,{
       position: 'absolute',
       left: lbx,
       top: lby,
       width: w,
       height: h,
-      borderColor: acitvated ? activatedColor : normalColor,
     }]
   }
 
@@ -37,7 +36,7 @@ class LabelBox extends React.Component {
     return boxes.map((box, i) => {
       if(box.enable){
         return <TouchableOpacity key={i.toString()}
-          style={this.styleLocation(box.vertices, box.selected, LabelColor.serverNeg, LabelColor.serverPos)}
+          style={this.styleLocation(box.vertices, box.selected, Styles.labelSelectNeg, Styles.labelSelectPos)}
           onPress = { ()=>this.select(i) } />
       }else{
         return <TouchableOpacity />
@@ -57,8 +56,7 @@ class LabelBox extends React.Component {
         style={this.styleLocation(
           box.vertices,
           i == this.props.currentPosition,
-          LabelColor.userNeg,
-          LabelColor.userPos,
+          Styles.labelActivateNeg, Styles.labelActivatePos
           )}
         onPress = { ()=>this.props.scrollToPosition(realtedPosition) }
         />

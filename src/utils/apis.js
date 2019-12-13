@@ -16,16 +16,18 @@ const parseImgSearchResp = function(imgSearchResponse) {
 }
 
 export function getUrls (mergedLabelPosition, addSearchResult){
-  config.googleCSE.params.q = mergedLabelPosition.word
-  console.log("params", config.googleCSE.baseUrl, config.googleCSE.params)
-  axios.get( config.googleCSE.baseUrl, {params:config.googleCSE.params} )
+  let params = config.googleCSE.params
+  params.q = mergedLabelPosition.word
+  // console.log("params", params)
+  let paramsStr = ( Object.entries(params).map( pair => pair[0] + '=' + pair[1] ) ).join('&')
+  axios.get( config.googleCSE.baseUrl + '?' + paramsStr )
   .then( res => {
     // console.log("res", Object.keys(res))
     let searchResult = parseImgSearchResp(res.data)
     addSearchResult(mergedLabelPosition, searchResult)
   })
   .catch(error => {
-    console.log("getUrls error", error)
+    console.log("error", error)
   });
 }
 
