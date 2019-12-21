@@ -5,8 +5,8 @@ import Dimensions from 'Dimensions'
 import AniCard from '../components/Card'
 import ScrollBar from '../components/ScrollBar'
 import LabelBox from '../components/LabelBox'
-import {uploadRes, getParsedImgSearchRes, parseImgSearchResp, getUrls} from '../utils/apis'
-import {parseOcrResponse, parseOcrResponse2, parseImgSearchResponse, mergeLabels} from '../utils/util'
+import {uploadRes, getUrls} from '../utils/apis'
+import {parseOcrResponse2, mergeLabels} from '../utils/util'
 import Styles, {PictureWidth, PictureOffset} from '../styles'
 const {winHeight, winWidth} = Dimensions.get('screen');
 
@@ -22,8 +22,6 @@ class ShowPicture extends React.Component {
       currentPosition: 0,
       toPosition: 0,
       image: {},
-      imageFile: '',
-      labelByServerOriginal: {},
       labelByServer: [],
       searchResults: [],
       labelByUser: [],
@@ -40,25 +38,19 @@ class ShowPicture extends React.Component {
       + ('00' + now.getSeconds()).slice(-2)
       + ('000' + now.getMilliseconds()).slice(-3)
       + "_wills"
-    let labelByServerOriginal = ocr
-    labelByServerOriginal.stamp = stamp
-    labelByServerOriginal.responses_raw = labelByServerOriginal.responses
+    let labelByServer = ocr
     let image = require('../../assets/sample.png')
-    let imageFile = ''
     ////
     if(!debug){
       image = {uri:this.props.navigation.state.params.photoUri || 'photo not recorded', isStatic:true}
-      imageFile = this.props.navigation.state.params.photo
-      labelByServerOriginal = this.props.navigation.state.params.recogRes
+      labelByServer = this.props.navigation.state.params.recogRes
+      stamp = this.props.navigation.state.params.stamp
     }
     this.setState({
       image: image,
-      imageFile: imageFile,
-      labelByServerOriginal: labelByServerOriginal,
-      labelByServerSanitized: parseOcrResponse2(labelByServerOriginal),
-      labelByServer: parseOcrResponse2(labelByServerOriginal),
+      labelByServer: labelByServer,
+      stamp: stamp
     })
-    // console.log("labelByServerOriginal", Object.keys(labelByServerOriginal))
   }
 
   ////update scroll pictures when user picks a phrase
@@ -148,16 +140,7 @@ class ShowPicture extends React.Component {
           <Text style={Styles.buttonText}>BACK</Text>
         </TouchableOpacity>
         <TouchableOpacity key='saveBtn' style={[Styles.button, Styles.buttonPosition2]}
-          onPress={ () => { uploadRes(
-            {
-              imageFile: this.state.imageFile,
-              stamp: this.state.labelByServerOriginal.stamp,
-              responses_raw: this.state.labelByServerOriginal.responses_raw,
-              responses: this.state.labelByServerOriginal.responses,
-              labelByServerSanitized: this.state.labelByServerSanitized,
-              labelByUser: this.state.labelByUser
-            }
-          )}}
+          onPress={ () => { uploadRes( { stamp: this.state.stamp, labelByUser: this.state.labelByUser } )}}
           // onPress={ () => this.getPhrases() }
           >
           <Text style={Styles.buttonText}>SAVE</Text>

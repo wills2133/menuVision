@@ -22,8 +22,9 @@ const config = {
   },
   nlpServer: {
     ocrApi: `http://18.217.27.172:5000/ocr`,
-    uploadApi: `http://18.217.27.172:5000/receive`,
-    imgaeUrlApi: `http://18.217.27.172:5000/imageurls`
+    uploadLabel: `http://18.217.27.172:5000/label`,
+    uploadImg: `http://18.217.27.172:5000/imageocr`,
+    imageUrlApi: `http://18.217.27.172:5000/imageurls`
   }
 };
 

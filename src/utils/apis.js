@@ -61,20 +61,24 @@ export function getOCR(image) {
     .then(response => {
       // console.log("response.data", response.data)
       response.data['stamp'] = stamp
-      // return response.data
+      return response.data
       // console.log(config.nlpServer.ocrApi, Object.keys(response.data))
-      return axios.post(config.nlpServer.ocrApi, response.data, {timeout: 1000})
-        .then(response2 => {
-          console.log("response", response2.data.responses_raw);
-          return response2.data
-        })
-        .catch(err2 => {
-          console.log("err2", err2)
-          return response.data
-        })
     })
     .catch(err => {console.log("err", err)});
 }
+
+export function getNLP(raw) {
+  return axios.post(config.nlpServer.ocrApi, raw, {timeout: 1000})
+    .then(response => {
+      console.log("response", response.data);
+      return response.data
+    })
+    .catch(err2 => {
+      console.log("err2", err2)
+      return raw
+    })
+}
+
 export function getUrls2 (labelPosition, i, addResult){
     let params = config.googleCSE.params
     params.q = Object.keys(labelPosition)[0]
@@ -107,8 +111,14 @@ export function getTranslated (update, origText, targetLang) {
 
 export function uploadRes(payload) {
   console.log("payload", payload)
-  axios.post(config.nlpServer.uploadApi, payload, {headers: { "Content-Type": "application/json" }} )
+  axios.post(config.nlpServer.uploadLabel, payload, {headers: { "Content-Type": "application/json" }} )
   .then( res => { console.log(res) } )
   .catch( error => { console.log("error", error) } );
 }
 
+export function uploadOcrImg(payload) {
+  console.log("payload", payload)
+  axios.post(config.nlpServer.uploadImg, payload, {headers: { "Content-Type": "application/json" }} )
+  .then( res => { console.log(res) } )
+  .catch( error => { console.log("error", error) } );
+}

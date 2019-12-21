@@ -5,7 +5,8 @@ import { Camera } from 'expo-camera'
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as Permissions from 'expo-permissions'
 import Loader from './Loader';
-import { getOCR } from '../utils/apis'
+import { getOCR, uploadOcrImg,} from '../utils/apis'
+import {parseOcrResponse2} from '../utils/util'
 import styles from '../styles'
 // import config from '../config';
 // import axios from 'axios';
@@ -43,6 +44,7 @@ class rootCamera extends React.Component {
           { base64: true }
         );
         textRecieved = await getOCR(photo.base64);
+        textNLP = await getNLP(textRecieved);
         // translatedText = await this.getTranslatedText(textRecieved);
         // if (translatedText === 'undefined') {
         //   translatedText = 'Text not recognized';
@@ -70,7 +72,15 @@ class rootCamera extends React.Component {
       .then(()=>{console.log("save json succeeded")})
       .cahtch(err=>{console.log("err", err)});
       */
-      navigate('showPicture', { photoUri: picturePath, photo: photo.base64, recogRes: textRecieved});
+      const labelByServerSanitized = parseOcrResponse2(textNLP)
+      uploadOcrImg({ 
+        imageFile: image, 
+        stamp: textNLP['stamp'], 
+        responses: textNLP.responses,
+        responses_raw: textRecieved.responses,
+        labelByServerSanitized: labelByServerSanitized,
+      })
+      navigate('showPicture', { photoUri: picturePath, recogRes: labelByServerSanitized, stamp: textNLP['stamp']});
       // navigate('rootText', { text: translatedText });
     }
   };
