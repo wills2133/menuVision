@@ -5,7 +5,7 @@ import { Camera } from 'expo-camera'
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as Permissions from 'expo-permissions'
 import Loader from './Loader';
-import { getOCR, uploadOcrImg,} from '../utils/apis'
+import { getOCR, getNLP, uploadOcrImg,} from '../utils/apis'
 import {parseOcrResponse2} from '../utils/util'
 import styles from '../styles'
 // import config from '../config';
@@ -74,7 +74,7 @@ class rootCamera extends React.Component {
       */
       const labelByServerSanitized = parseOcrResponse2(textNLP)
       uploadOcrImg({ 
-        imageFile: image, 
+        imageFile: photo.base64, 
         stamp: textNLP['stamp'], 
         responses: textNLP.responses,
         responses_raw: textRecieved.responses,

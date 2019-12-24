@@ -32,12 +32,11 @@ class ShowPicture extends React.Component {
   componentWillMount(){
     ////fot debug
     let now = new Date()
-    let stamp = now.getFullYear()
+    let stamp = "wills_" + now.getFullYear()
       + ('00' + (now.getMonth()+1)).slice(-2)
       + ('00' + now.getDate()).slice(-2)
       + ('00' + now.getSeconds()).slice(-2)
       + ('000' + now.getMilliseconds()).slice(-3)
-      + "_wills"
     let labelByServer = ocr
     let image = require('../../assets/sample.png')
     ////
@@ -49,7 +48,8 @@ class ShowPicture extends React.Component {
     this.setState({
       image: image,
       labelByServer: labelByServer,
-      stamp: stamp
+      stamp: stamp,
+      labelCount: 0,
     })
   }
 
@@ -74,6 +74,11 @@ class ShowPicture extends React.Component {
       labelByUser: phrasesScoped,
       searchResults: searchResultsScoped,
       toPosition: k*PictureWidth,
+      labelCount: this.state.labelCount + 1,
+    })
+    uploadRes({
+      stamp: this.state.stamp + '_' + this.state.labelCount, 
+      labelByUser: phrasesScoped
     })
   }
 
@@ -139,15 +144,11 @@ class ShowPicture extends React.Component {
           onPress={ () => { navigate('rootCameraContainer') } }>
           <Text style={Styles.buttonText}>BACK</Text>
         </TouchableOpacity>
-        <TouchableOpacity key='saveBtn' style={[Styles.button, Styles.buttonPosition2]}
-          onPress={ () => { uploadRes( { stamp: this.state.stamp, labelByUser: this.state.labelByUser } )}}
+        <TouchableOpacity key='visionBtn' style={[Styles.button, Styles.buttonPosition2]}
+          onPress={ () => this.getPhrases() }
           // onPress={ () => this.getPhrases() }
           >
-          <Text style={Styles.buttonText}>SAVE</Text>
-        </TouchableOpacity>
-        <TouchableOpacity key='activeBtn' style={[Styles.button, Styles.buttonPosition3]}
-          onPress={ () => this.getPhrases() }>
-          <Text style={Styles.buttonText}>▽</Text>
+          <Text style={Styles.buttonText}>VIS</Text>
         </TouchableOpacity>
         <View style={Styles.scrollbarPosition}>
           <ScrollBar
