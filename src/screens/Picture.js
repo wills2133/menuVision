@@ -1,14 +1,14 @@
 // import { Constants } from 'expo'
 import React from 'react'
 import { Text, Image, View, TouchableOpacity, StyleSheet } from 'react-native'
-import Dimensions from 'Dimensions'
+// import Dimensions from 'Dimensions'
 import AniCard from '../components/Card'
 import ScrollBar from '../components/ScrollBar'
 import LabelBox from '../components/LabelBox'
 import {uploadRes, getUrls} from '../utils/apis'
 import {parseOcrResponse2, mergeLabels} from '../utils/util'
 import Styles, {PictureWidth, PictureOffset} from '../styles'
-const {winHeight, winWidth} = Dimensions.get('screen');
+// const {winHeight, winWidth} = Dimensions.get('screen');
 
 import cesResults from '../../assets/cesRes.json'
 import ocr from '../../assets/ocr.json'
