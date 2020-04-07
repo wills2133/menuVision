@@ -1,28 +1,26 @@
 {
   "expo": {
-    "name": "menuvision",
-    "slug": "menuvision",
-    "privacy": "public",
-    "sdkVersion": "33.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "name": "menuvision0.5.8",
+    "description": "No description",
+    "slug": "snack-d056976b-4cbb-45b5-959e-38d6c7ecef0a",
+    "privacy": "unlisted",
+    "sdkVersion": "34.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "primaryColor": "#cccccc",
+    "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
+    "loading": {
+      "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
+      "hideExponentText": false
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
+    "packagerOpts": {
+      "assetExts": [
+        "ttf",
+        "mp4",
+        "otf",
+        "xml"
+      ]
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "supportsTablet": true
     }
