@@ -21,10 +21,10 @@ const config = {
     }
   },
   nlpServer: {
-    ocrApi: `http://18.217.27.172:5000/ocr`,
-    uploadLabel: `http://18.217.27.172:5000/label`,
-    uploadImg: `http://18.217.27.172:5000/imageocr`,
-    imageUrlApi: `http://18.217.27.172:5000/imageurls`
+    ocrApi: `https://uploader.w2133.net/ocr`,
+    uploadLabel: `https://uploader.w2133.net/label`,
+    uploadImg: `https://uploader.w2133.net/imageocr`,
+    imageUrlApi: `https://uploader.w2133.net/imageurls`
     // ocrApi: `http://192.168.1.91:5000/ocr`,
     // uploadLabel: `http://192.168.1.91:5000/label`,
     // uploadImg: `http://192.168.1.91:5000/imageocr`,
